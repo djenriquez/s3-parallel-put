@@ -286,6 +286,7 @@ def putter(put, put_queue, stat_queue, options):
         should_gzip = False
         try:
             if connection is None:
+                logging.info(options.bucket_region)
                 connection = boto.s3.connect_to_region(options.bucket_region,is_secure=options.secure)
             if bucket is None:
                 bucket = connection.get_bucket(options.bucket)
@@ -437,7 +438,6 @@ def main(argv):
           security_token=os.environ.get('AWS_SECURITY_TOKEN'),
           is_secure=True,
           host=options.host,
-          calling_format = boto.s3.connection.OrdinaryCallingFormat(),
         )
     else:
         connection = boto.s3.connect_to_region(options.bucket_region,
