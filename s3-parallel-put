@@ -286,7 +286,7 @@ def putter(put, put_queue, stat_queue, options):
         should_gzip = False
         try:
             if connection is None:
-                connection = S3Connection(is_secure=options.secure, host=options.host)
+                connection = boto.s3.connect_to_region(options.bucket_region,is_secure=options.secure)
             if bucket is None:
                 bucket = connection.get_bucket(options.bucket)
             key = put(bucket, key_name, value)
